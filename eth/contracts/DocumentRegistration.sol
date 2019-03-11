@@ -74,7 +74,7 @@ contract DocumentRegistration is Storage {
 
 
         function setPrices(uint128 _price1, uint128 _price2, uint128 _price3, uint128 _price4) public onlyOwners {
-                uint64 p = 1 ether;
+                uint64 p = 1 ether/10000;
                 prices.push(_price1 * p);
                 prices.push(_price2 * p);
                 prices.push(_price3 * p);
@@ -160,8 +160,11 @@ contract DocumentRegistration is Storage {
                 current.transfer(msg.value);
                 bytes32 temporaryHash = keccak256(abi.encodePacked(_name, _temporaryIndex));
                 bytes32 permanentHash = keccak256(abi.encodePacked(_name, nameIndex[_name]));
+                require(registry[permanentHash].isEntity == false);
+                require(temporaryRegistry[temporaryHash].isEntity);
                 address signee = temporaryRegistry[temporaryHash].signee;
                 require(signee == msg.sender);
+                // Next line could be flawed - not registering for one
                 userDocs[signee][docsPerUser[signee]] = userDocs[msg.sender][docsPerUser[msg.sender]] = registry[permanentHash] = Document(
                         temporaryRegistry[temporaryHash].name,
                         temporaryRegistry[temporaryHash].metadata,
@@ -225,32 +228,5 @@ contract DocumentRegistration is Storage {
                 }
         }
 
-    function checkTemporary(string memory _name, uint32 _index)
-    public
-    view
-    returns(string memory, string memory, uint, address, address) {
-        bytes32 hash = keccak256(abi.encodePacked(_name, _index));
-        return (
-            temporaryRegistry[hash].name,
-            temporaryRegistry[hash].metadata,
-            temporaryRegistry[hash].timestamp,
-            temporaryRegistry[hash].registrant,
-            temporaryRegistry[hash].signee
-        );
-    }
-
-    function documentQuery(string memory _name, uint32 _nameIndex)
-    public
-    view
-    returns(string memory, string memory, uint, address, address) {
-        bytes32 hash = keccak256(abi.encodePacked(_name, _nameIndex));
-        return (
-            registry[hash].name,
-            registry[hash].metadata,
-            registry[hash].timestamp,
-            registry[hash].registrant,
-            registry[hash].signee
-        );
-    }
 
 }
