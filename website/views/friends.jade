@@ -1,0 +1,62 @@
+extends layout
+link(rel='stylesheet', href='/stylesheets/hover.css')
+
+block content
+ .content
+      h3(style="margin-left:0%;") Our 'Friends' functionality is still under development. Please be mindful.
+      h5(style="margin-left:0%;") Click on a username below to create a Multi-Sig Document with the desired user.
+            br
+            br
+            .row(style="margin-left:0%;")
+              .col-lg-10.col-md-10
+                .card
+                  .card-header.card-header-tabs.card-header-primary
+                    .nav-tabs-navigation
+                      .nav-tabs-wrapper
+                        span.nav-tabs-title 
+                        |                     
+                        ul.nav.nav-tabs(data-tabs='tabs')
+                          li.nav-item
+                            a.nav-link.active(href='#profile', data-toggle='tab')
+                              |  My Friends
+                              |                            
+                              .ripple-container        
+                  .card-body(style="max-height: 300px !important; overflow: scroll;")
+                    .tab-content
+                      #profile.tab-pane.active
+                        table.table
+                          tbody
+                           form(name="friendsForm" method='post', action='/users/multisig')
+                            ul.list-group
+                              each val, index in pageData.friends[0]
+                               a.clicker(onClick="submitForm(this.id)" id=index)
+                                input.hoverz.list-group-item-action.list-group-item(style="font-size: 16px;" name="" id=10000+index value=val)     
+         .section.section-contacts
+          .row
+            .col-md-8.ml-auto.mr-auto
+              form.contact-form(method='post', action='/users/friends')
+                .row
+                  .col-md-12
+                    .form-group
+                      label.bmd-label-floating Add new friend by username
+                      input.form-control(type='text', name="friend")
+                br
+                br
+                p For privacy reasons you will not be shown any information about the username typed. If the username exists, a friend request will be sent.
+                .row
+                  .col-md-4.ml-auto.mr-auto.text-center
+                    button.btn.btn-primary.btn-raised.noreload(type='submit', name='submit', value='Add')
+                      | Add
+            br
+            br
+    script(src='../assets/js/core/jquery.min.js')
+    script(src='/javascripts/load.js', type='text/javascript')
+    script(src='/javascripts/friends.js', type='text/javascript')
+    |   
+    script(src='../assets/js/core/popper.min.js')
+    |   
+    script(src='../assets/js/core/bootstrap-material-design.min.js')
+    script(src='../assets/js/material-dashboard.js?v=2.1.1', type='text/javascript')
+
+
+

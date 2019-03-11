@@ -1,0 +1,97 @@
+extends layout
+
+block content
+    .content
+        .section.section-contacts
+          .row
+            .col-md-8.ml-auto.mr-auto
+              h2.text-center.title Verify a document
+              h4.text-center.description
+                | Input the corresponding data for a document and upload a file to verify 
+                | if it matches the registration.
+                br
+                br
+              form.contact-form
+                .row
+                  .col-md-12
+                    .form-group
+                      label.bmd-label-floating Document Title
+                      input.form-control(type='text', id="title")
+                    .form-group
+                      label.bmd-label-floating Index
+                      input.form-control(type='number', id="index")
+                    .form-group
+                      label.bmd-label-floating Upload file
+                     input.form-control-file(id='inp' type='file')
+                br
+                br
+                .row
+                  .col-md-4.ml-auto.mr-auto.text-center
+                    button.btn.btn-primary.btn-raised.noreload(onclick="checkDoc();")
+                      | Verify
+        .section
+          center
+             br
+             h3(id="response")
+      #notModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                      .modal-dialog(role='document')
+                        .modal-content
+                          .modal-header
+                            h5#exampleModalLabel.modal-title The documents do not match.
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                              span(aria-hidden='true') ×
+                          .modal-body
+                           center
+                           i(src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Saint_Andrew%27s_cross_%28red%29.svg/2000px-Saint_Andrew%27s_cross_%28red%29.svg.png" style="max-width: 150px;")
+                            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+      #matchModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                      .modal-dialog(role='document')
+                        .modal-content
+                          .modal-header
+                            h5#exampleModalLabel.modal-title The documents match.
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                              span(aria-hidden='true') ×
+                          .modal-body
+                           center
+                           i(src="https://www.hiesscheme.org.uk/installers/wp-content/uploads/2018/07/check-mark-green-tick-mark.png" style="max-width: 150px;")
+                            button.btn.btn-secondary(type='button', data-dismiss='modal') Close  
+    // Core JS Files
+    script(src='../assets/js/core/jquery.min.js')
+    script(src='/javascripts/load.js', type='text/javascript')
+    script(src='/javascripts/web3lib.js', type='text/javascript')
+    script(src='/javascripts/eth.js', type='text/javascript')
+    script(src='/javascripts/intermediate.js', type='text/javascript')
+    |   
+    script(src='../assets/js/core/popper.min.js')
+    |   
+    script(src='../assets/js/core/bootstrap-material-design.min.js')
+    |   
+    script(src='../assets/js/plugins/perfect-scrollbar.jquery.min.js')
+    // Plugin for Sweet Alert
+    script(src='../assets/js/plugins/sweetalert2.js')
+    // Forms Validations Plugin
+    script(src='../assets/js/plugins/jquery.validate.min.js')
+    // Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select
+    //script(src='../assets/js/plugins/bootstrap-selectpicker.js')
+    // Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs
+    script(src='../assets/js/plugins/bootstrap-tagsinput.js')
+    // Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput
+    script(src='../assets/js/plugins/jasny-bootstrap.min.js')
+    // Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js')
+    // Library for adding dinamically elements
+    //script(src='../assets/js/plugins/arrive.min.js')
+    // Notifications Plugin
+    //script(src='../assets/js/plugins/bootstrap-notify.js')
+    // Control Center for Material Dashboard: parallax effects, scripts for the example pages etc
+    script(src='../assets/js/material-dashboard.js?v=2.1.1', type='text/javascript')
+style.
+
+    .form-control {
+      color: black !important;
+    }
+
+script.
+    $(".noreload").click(function(event) {
+    event.preventDefault();
+    })

@@ -1,0 +1,47 @@
+extends layout
+
+block content
+    .spacer
+      .content
+        .container-fluid
+          .row
+            .col-md-12
+              .card
+                .card-header.card-header-primary
+                    h4.card-title Edit Profile
+                    p.card-category Complete your profile
+                  .card-body
+                    form
+                      .row
+                        .col-md-4
+                          .form-group
+                            label.bmd-label-floating Username
+                            input.form-control(type='text', disabled, placeholder="#{pageData.username[0]}")
+                        .col-md-8
+                          .form-group
+                            label.bmd-label-floating Email address
+                            input.form-control(type='email', placeholder="#{pageData.email[0]}")
+                      .row
+                        .col-md-5
+                          .form-group
+                            label.bmd-label-floating Name
+                            input.form-control(type='text', placeholder="#{pageData.name[0]}")
+                        .col-md-7
+                          .form-group
+                            label.bmd-label-floating Ethereum Address
+                            input.form-control(type='text', placeholder="#{pageData.eth[0]}")
+                      .row
+                        .col-md-12
+                          .form-group
+                            label About Me
+                            .form-group
+                              textarea.form-control(placeholder="Coming soon..." rows='5' disabled)
+                      button.btn.btn-primary.pull-right(type='submit' disabled) Update Profile
+                      .clearfix
+
+        script(src='../assets/js/core/jquery.min.js')
+                    script(src='../assets/js/core/bootstrap-material-design.min.js')
+                script(src='../assets/js/material-dashboard.js?v=2.1.1', type='text/javascript')
+        script(src='/javascripts/eth.js', type='text/javascript')
+       script(src='/javascripts/load.js', type='text/javascript')
+

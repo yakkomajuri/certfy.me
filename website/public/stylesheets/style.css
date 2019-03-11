@@ -1,0 +1,70 @@
+.content {
+    margin-left: 20%;
+    margin-top: 5%;
+}
+#right {
+    margin-left:300%;
+}
+.container {
+    padding-top: 5%;
+}
+ul.sucess li {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    list-style: none;
+}
+ul.error li {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    list-style: none;
+}
+
+#cmg {
+    margin-left: -10%;
+}
+
+
+.reply {
+    max-width: 200px;
+}
+
+
+    .form-control {
+      color: black !important;
+    }
+
+.hoverz:hover {
+     cursor: pointer !important;
+} 
+
+/*
+.dashed {
+    border-bottom: 0.5px dashed;
+}
+.dashed:hover {
+    cursor: pointer;
+}
+*/
+.spacer {
+    margin-top:5%;
+}
+
+@media screen and (max-width: 800px) {
+    .content{
+        margin-left: 0%;
+        margin-top: 10%;
+    }
+    .spacer {
+        margin-top:15%;
+    }
+}

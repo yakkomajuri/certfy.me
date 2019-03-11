@@ -1,0 +1,52 @@
+@font-face {
+    font-family: "Aileron";
+    src: url(./public/assets/fonts/aileron-thin.otf) format("truetype");
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url(./public/assets/fonts/Lato-Bold.ttf) format("truetype");
+}
+
+.title {
+    font-family: 'Verdana', 'Aileron', 'Lato' !important;
+}
+
+.section-contacts{
+    margin-top: -10% !important;
+}
+/*
+input[type="file"] {
+}
+*/
+#theone {
+    padding: 0;
+    border: none;
+    background: none;
+    color: aliceblue;
+    margin-right: 1px;
+}
+
+.form-control {
+    color: white !important;
+}
+
+#theone:hover {
+    cursor: pointer;
+}
+.spacer {
+    margin-top:20%;
+}
+
+h3 {
+    color: aliceblue !important;
+}
+
+.h4 {
+    font-family: 'Verdana', 'Aileron', 'Lato' !important;
+}
+@media screen and (max-width: 800px) {
+    .spacer {
+        margin-top:30%;
+    }
+}

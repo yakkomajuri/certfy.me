@@ -1,0 +1,36 @@
+{
+  "name": "nodeauth",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "alert-node": "^1.2.3",
+    "bcryptjs": "2.3.0",
+    "body-parser": "~1.13.2",
+    "bootstrap": "^4.3.1",
+    "connect-flash": "*",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "express-brute": "^1.0.1",
+    "express-messages": "*",
+    "express-session": "^1.15.6",
+    "express-validator": "*",
+    "http": "0.0.0",
+    "http-errors": "~1.6.2",
+    "https": "^1.0.0",
+    "jade": "~1.11.0",
+    "mongodb": "*",
+    "mongoose": "*",
+    "morgan": "~1.9.0",
+    "multer": "*",
+    "nodemon": "^1.18.10",
+    "passport": "*",
+    "passport-custom": "^1.0.5",
+    "passport-http": "*",
+    "passport-local": "*",
+    "serve-favicon": "^2.5.0"
+  }
+}

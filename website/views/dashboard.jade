@@ -1,0 +1,212 @@
+extends layout
+
+block content
+    .content
+        h1 Hello 
+          span #{pageData.name[0]}! 
+        h4 Your Ethereum Address is: 
+                        span(id="ad") #{pageData.eth[0]} 
+        br
+        #myProgress(style="height: 5px !important; background-color: #ddd !important; visibility: visible;")
+         #myBar(style="height: 5px !important;  background-color: #c379fc !important; visibility: visible;")
+        span(id="event") Loading your documents from the blockchain...
+        .spacer  
+            .row
+              .col-lg-12.col-md-12
+                .card
+                  .card-header.card-header-tabs.card-header-primary
+                    .nav-tabs-navigation
+                      .nav-tabs-wrapper
+                        span.nav-tabs-title Select:
+                        |                       
+                        ul.nav.nav-tabs(data-tabs='tabs')
+                          li.nav-item
+                            a.nav-link.active(href='#profile', data-toggle='tab')
+                              |  Documents
+                              |                             
+                              .ripple-container
+                          |                         
+                          li.nav-item
+                            a.nav-link(href='#messages', data-toggle='tab')
+                              |  Pending
+                              |                             
+                              .ripple-container
+                          |                         
+                          li.nav-item
+                            a.nav-link(href='#settings', data-toggle='tab')
+                              |  Friend requests
+                              |                             
+                              .ripple-container
+                  |                 
+                  .card-body
+                    .tab-content
+                      #profile.tab-pane.active
+                        table.table
+                          tbody
+                            tr
+                              td
+                                .form-check
+                                  label.form-check-label
+                                    |                                   
+                              |                             
+                              td(id="lt1") No more documents to display
+                              |                             
+                              td.td-actions.text-right
+                                button.btn.btn-primary.btn-link.btn-sm(type='button', rel='tooltip', title='Edit Task')
+                                |                               
+                                button.btn.btn-danger.btn-link.btn-sm(type='button', rel='tooltip', title='Remove')
+                            |                           
+                            tr
+                              td
+                                .form-check
+                                  label.form-check-label
+                                    |                                   
+                              |                             
+                              td(id="lt2") No more documents to display
+                              |                             
+                              td.td-actions.text-right
+                                button.btn.btn-primary.btn-link.btn-sm(type='button', rel='tooltip', title='Edit Task')
+                                |                               
+                                button.btn.btn-danger.btn-link.btn-sm(type='button', rel='tooltip', title='Remove')
+                            |                                
+                            tr
+                              td
+                                .form-check
+                                  label.form-check-label
+                                    |                                   
+                              |                             
+                              td(id="lt3") No more documents to display
+                              |                             
+                              td.td-actions.text-right
+                                button.btn.btn-primary.btn-link.btn-sm(type='button', rel='tooltip', title='Edit Task')
+                                |                               
+                                button.btn.btn-danger.btn-link.btn-sm(type='button', rel='tooltip', title='Remove')
+                            |                           
+                            tr
+                              td
+                                .form-check
+                                  label.form-check-label
+                                    |                                   
+                              |                             
+                              td(id="lt4") No more documents to display
+                              |                             
+                              td.td-actions.text-right
+                                button.btn.btn-primary.btn-link.btn-sm(type='button', rel='tooltip', title='Edit Task')
+                                |                               
+                                button.btn.btn-danger.btn-link.btn-sm(type='button', rel='tooltip', title='Remove')
+                            |                                      
+                      #messages.tab-pane
+                        table.table
+                          tbody
+                            tr
+                              td
+                                .form-check
+                                  label.form-check-label
+                                    |                                   
+                              |                             
+                              td
+                                if (pageData.toSign[0]) 
+                                  p You have documents waiting to be signed. Click 
+                                   a(href="/users/sign") here 
+                                   | to see them.
+                                 else   
+                                  p You have no documents pending signature at this moment.   
+                                          
+                      #settings.tab-pane
+                        table.table
+                          tbody
+                           tr   
+                                    //form(name="requestsForm" method='post', action='/users/accept')
+                             each val, index in pageData.friendRequests[0]       
+                              td
+                               input.form-control(name="" id=index value=val disabled)
+                              |                             
+                              td.td-actions.text-right
+                                button.btn.btn-primary.btn-link.btn-sm(type='button', rel='tooltip', title='Accept request' id='a'+index onClick="subForm(this.id)" data-toggle="modal" data-target="#acceptModal")
+                                  i.material-icons check
+                                |                               
+                                button.btn.btn-danger.btn-link.btn-sm(type="button" data-toggle="modal" rel='tooltip' title='Reject request' data-target="#rejectModal" onClick="prepareRemoval(this.id)")
+                                  i.material-icons close
+                              tr
+                    #acceptModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                      .modal-dialog(role='document')
+                        .modal-content
+                         form(name="requestsForm" method='post', action='/users/accept')
+                          .modal-header
+                            h5#exampleModalLabel.modal-title Are you sure you want to accept this request?
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                              span(aria-hidden='true') ×
+                          .modal-body
+                            input.form-control(name="request" id="modal1" value="username" readonly)
+                            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                            button.btn.btn-primary(type='button' onClick="document.requestsForm.submit();" data-dismiss='modal') I'm sure
+                    #rejectModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                      .modal-dialog(role='document')
+                        .modal-content
+                         form(name="rejectForm" method='post', action='/users/reject')
+                          .modal-header
+                            h5#exampleModalLabel.modal-title Are you sure you want to accept this request?
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                              span(aria-hidden='true') ×
+                          .modal-body
+                            input.form-control(name="requested" id="modal2" value="username" readonly)
+                            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                            button.btn.btn-primary(type='button' onClick="document.rejectForm.submit();" data-dismiss='modal') I'm sure
+
+
+    // Core JS Files
+    script(src='../assets/js/core/jquery.min.js')
+    script(src='/javascripts/eth.js', type='text/javascript')
+    script(src='/javascripts/loader.js', type='text/javascript')
+    script(src='/javascripts/load.js', type='text/javascript')
+    script(src='/javascripts/dashboard.js', type='text/javascript')
+    script(src='/javascripts/friends.js', type='text/javascript')
+    |   
+    script(src='../assets/js/core/popper.min.js')
+    |   
+    script(src='../assets/js/core/bootstrap-material-design.min.js')
+    script(src='../assets/js/material-dashboard.js?v=2.1.1', type='text/javascript')
+
+
+script.
+    $(".noreload").click(function(event) {
+    event.preventDefault();
+    })
+    
+
+// 
+                           form(name="friendsForm" method='post', action='/users/multisig')
+                            ul.list-group
+                             each val in pageData.friends[0]
+                               a.clicker(onClick="submitForm(this.id)" id=index)
+                                  input.hoverz.list-group-item-action.list-group-item(style="font-size: 16px; overflow: hidden; white-space: nowrap;" name="" id=10000+index value=val)   
+                                  button.btn.btn-primary.btn-link.btn-sm(type='button', rel='tooltip', title='Accept request')
+                                    i.material-icons check
+                                  |                               
+                                  button.btn.btn-danger.btn-link.btn-sm(type='button', rel='tooltip', title='Remove request')
+                                    i.material-icons close
+
+                                    No pending document to display
+                              |                             
+                              td.td-actions.text-right
+                                button.btn.btn-primary.btn-link.btn-sm(type='button', rel='tooltip', title='Sign document')
+                                  i.material-icons edit
+                                |                               
+                                button.btn.btn-danger.btn-link.btn-sm(type='button', rel='tooltip', title='Remove request')
+                                  i.material-icons close
+                            |                           
+                            tr
+                              td
+                                .form-check
+                                  label.form-check-label
+                                    |                                   
+                              |                             
+                              td  No pending document to display
+                              |                             
+                              td.td-actions.text-right
+                                button.btn.btn-primary.btn-link.btn-sm(type='button', rel='tooltip', title='Sign document')
+                                  i.material-icons edit
+                                |                               
+                                button.btn.btn-danger.btn-link.btn-sm(type='button', rel='tooltip', title='Remove request')
+                                  i.material-icons close
+                                    |             

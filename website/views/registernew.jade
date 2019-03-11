@@ -1,0 +1,110 @@
+extends layout
+
+block content
+    .content
+        .section.section-contacts
+          .row
+            .col-md-8.ml-auto.mr-auto
+              h2.text-center.title Register a document
+              h4.text-center.description
+                | For multi-sig documents, include the Ethereum address of the second signee in the
+                | corresponding field. Uploading files is optional - you may register only raw data.
+                br
+                br
+              form.contact-form
+                .row
+                  .col-md-12
+                    .form-group
+                      label.bmd-label-floating Document Title
+                      input.form-control(type='text', id="title")
+                    .form-group
+                      label.bmd-label-floating Second signee (Multisig only)
+                      input.form-control(type='text', id="multi" value=pageData.signee[0]) 
+                    .form-group
+                      label.bmd-label-floating Document Description
+                      textarea.form-control(type='text', rows='4', id="desc")
+                    .form-group
+                      label.bmd-label-floating Add file
+                     input.form-control-file(id='inp' type='file')
+                br
+                br
+                .row
+                  .col-md-4.ml-auto.mr-auto.text-center
+                    button.btn.btn-primary.btn-raised.noreload(onclick="int();")
+                      | Register
+              br
+              center
+              #myProgress(style="height: 30px !important; background-color: #ddd !important; visibility: hidden;")
+               #myBar(style="height: 30px !important;  background-color: #c379fc !important; visibility: hidden;")
+              span(id="event") 
+
+        #multiModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                      .modal-dialog(role='document')
+                        .modal-content
+                         form(name="multiForm" method='post', action='/users/multi')
+                          .modal-header
+                            h5#exampleModalLabel.modal-title If the username exists, would you like us to notify the second signee through the platform? 
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                              span(aria-hidden='true') ×
+                          .modal-body
+                            p Send email? (optional)
+                            input.form-control(name="emailBool" id="email" type="checkbox")
+                            p Second signee's address:
+                            input.form-control(name="address" id="eth_address" style="background-color: white;" readonly)
+                            p Document Title:
+                            input.form-control(name="title" id="m_title" style="background-color: white;" readonly)
+                            p Index:
+                            input.form-control(name="index" id="eventIndex" style="background-color: white;" readonly)
+                            button.btn.btn-secondary(type='button', data-dismiss='modal') Close
+                            button.btn.btn-primary(type='button' onClick="document.multiForm.submit();" data-dismiss='modal') Yes
+
+        #stdModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalLabel', aria-hidden='true')
+                      .modal-dialog(role='document')
+                        .modal-content
+                         form(name="stdForm" method='post', action='/users/std')
+                          .modal-header
+                            h5#exampleModalLabel.modal-title Here's the information for your registration.
+                            button.close(type='button', data-dismiss='modal', aria-label='Close')
+                              span(aria-hidden='true') ×
+                          .modal-body
+                            p Document Title:
+                            input.form-control(name="title" id="mtit" style="background-color: white;" readonly)
+                            p Index:
+                            input.form-control(name="index" id="evtInd" style="background-color: white;" readonly)
+                            p Would you like us to save the index and name for you? We do not store any user information without consent.
+                            button.btn.btn-secondary(type='button', data-dismiss='modal') No, I'll do it myself
+                            button.btn.btn-primary(type='button' onClick="document.stdForm.submit();" data-dismiss='modal') Yes please
+    // Core JS Files
+    script(src='../assets/js/core/jquery.min.js')
+    script(src='/javascripts/web3lib.js', type='text/javascript')
+    script(src='/javascripts/insider.js', type='text/javascript')
+    script(src='/javascripts/intermediate.js', type='text/javascript')
+    script(src='../assets/js/core/jquery.min.js')
+    |   
+    script(src='../assets/js/material-dashboard.js?v=2.1.1', type='text/javascript')
+    script(src='../assets/js/core/popper.min.js')
+    |   
+    script(src='../assets/js/core/bootstrap-material-design.min.js')
+
+style.
+
+    .form-control {
+      color: black !important;
+    }
+
+    #myProgress {
+      width: 100%;
+      background-color: #ddd;
+      visibility: hidden;
+    }
+
+    #myBar {
+      width: 1%;
+      height: 30px;
+      background-color: #c379fc;
+      visibility: hidden;
+    }
+
+script.
+
+      getPrices();
