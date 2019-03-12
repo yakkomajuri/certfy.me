@@ -163,9 +163,10 @@ contract DocumentRegistration is Storage {
                 require(registry[permanentHash].isEntity == false);
                 require(temporaryRegistry[temporaryHash].isEntity);
                 address signee = temporaryRegistry[temporaryHash].signee;
+                address registrant = temporaryRegistry[temporaryHash].registrant;
                 require(signee == msg.sender);
                 // Next line could be flawed - not registering for one
-                userDocs[signee][docsPerUser[signee]] = userDocs[msg.sender][docsPerUser[msg.sender]] = registry[permanentHash] = Document(
+                userDocs[registrant][docsPerUser[registrant]] = userDocs[msg.sender][docsPerUser[msg.sender]] = registry[permanentHash] = Document(
                         temporaryRegistry[temporaryHash].name,
                         temporaryRegistry[temporaryHash].metadata,
                         block.timestamp,
@@ -228,5 +229,31 @@ contract DocumentRegistration is Storage {
                 }
         }
 
+    function checkTemporary(string memory _name, uint32 _index)
+    public
+    view
+    returns(string memory, uint, address, address, bytes32) {
+        bytes32 hash = keccak256(abi.encodePacked(_name, _index));
+        return (
+            temporaryRegistry[hash].metadata,
+            temporaryRegistry[hash].timestamp,
+            temporaryRegistry[hash].registrant,
+            temporaryRegistry[hash].signee,
+            temporaryRegistry[hash].hash
+        );
+    }
+
+    function documentQuery(string memory _name, uint32 _nameIndex)
+    public
+    view
+    returns(string memory, uint, address, address) {
+        bytes32 hash = keccak256(abi.encodePacked(_name, _nameIndex));
+        return (
+            registry[hash].metadata,
+            registry[hash].timestamp,
+            registry[hash].registrant,
+            registry[hash].signee
+        );
+    }
 
 }
