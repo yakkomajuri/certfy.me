@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 var alert = require('alert-node');
 
-mongoose.connect('mongodb://127.0.0.1/certfy');
+mongoose.connect('DATABASE ADDRESS');
 
 var db = mongoose.connection;
 
