@@ -2,10 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
+//FOR RUNNING REMOTELY (Easy https force)
 /* router.get('/', function(req, res, next) {
   res.redirect('https://certfy.me/home');
 }); */
 
+
+//FOR RUNNING LOCALLY
 router.get('/', function(req, res, next) {
   res.render('home', {title:'Home'});
 });
